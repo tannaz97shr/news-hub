@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import Filter from "../components/Filter";
 import NewsCard from "../components/NewsCard";
 import Pagination from "../components/Pagination";
+import Search from "../components/Search";
 import { fetchEverythingThunk } from "../features/news/newsSlice";
 import { AppDispatch, RootState } from "../store";
 
@@ -25,12 +27,14 @@ const Home = () => {
         .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
 
     const { innerWidth: width } = window;
-    const pageSize: number = width > 1279 ? 30 : width > 766 ? 20 : 10;
+    const pageSize: number = width > 1279 ? 12 : width > 766 ? 8 : 4;
 
     const keyword = searchParams.get("keyword") || "";
     const from = searchParams.get("from") || formatDate(yesterday);
     const to = searchParams.get("to") || formatDate(today);
     const page = parseInt(searchParams.get("page") || "1", 10);
+    const category = searchParams.get("category") || "";
+    const sources = searchParams.get("source")?.split(",") || [];
 
     dispatch(
       fetchEverythingThunk({
@@ -39,6 +43,8 @@ const Home = () => {
         to,
         page,
         pageSize,
+        category,
+        sources,
       })
     );
   }, [dispatch, searchParams]);
@@ -53,6 +59,12 @@ const Home = () => {
 
   return (
     <>
+      <div className="mb-6 flex items-center justify-between">
+        <div className="lg:w-1/3">
+          <Search />
+        </div>
+        <Filter />
+      </div>
       <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {articles.map((article) => (
           <NewsCard

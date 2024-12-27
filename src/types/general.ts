@@ -16,7 +16,8 @@ export interface FetchEverythingParams {
   keyword?: string;
   from?: string;
   to?: string;
-  sources?: string;
+  sources?: string[];
   page?: number;
   pageSize?: number;
+  category?: string;
 }

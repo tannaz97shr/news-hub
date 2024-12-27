@@ -18,18 +18,23 @@ export const fetchEverythingThunk = createAsyncThunk(
   "news/fetchEverything",
   async (params: FetchEverythingParams, { rejectWithValue }) => {
     try {
-      const [newsApiArticles, guardianArticles, nytArticles] =
-        await Promise.all([
-          fetchEverything(params),
-          fetchGuardian(params),
-          fetchNYT(params),
-        ]);
+      const { sources } = params;
+      const [newsApiArticles, guardianArticles, nytArticles] = sources?.length
+        ? await Promise.all([
+            fetchEverything(params),
+            sources.includes("New York Times") ? fetchNYT(params) : null,
+            sources.includes("The Guardian") ? fetchGuardian(params) : null,
+          ])
+        : await Promise.all([
+            fetchEverything(params),
+            fetchNYT(params),
+            fetchGuardian(params),
+          ]);
 
-      // Combine and sort articles by date
       const combinedArticles = [
         ...newsApiArticles,
-        ...guardianArticles,
-        ...nytArticles,
+        ...(guardianArticles || []),
+        ...(nytArticles || []),
       ].sort(
         (a, b) =>
           new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
