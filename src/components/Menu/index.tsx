@@ -15,7 +15,7 @@ const Menu = () => {
 
   return (
     <header className="bg-background-primary shadow-md md:shadow-none sticky top-0 z-50 md:w-full">
-      <div className=" container mx-auto px-4 py-3 flex justify-between items-center">
+      <div className=" container mx-auto py-3 flex justify-between items-center w-full">
         <div className="text-2xl font-bold">
           <a href="/">
             <img className="w-28 h-14" src={"/assets/logo.png"} alt={"logo"} />

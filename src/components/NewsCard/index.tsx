@@ -18,7 +18,11 @@ const NewsCard = ({ title, img, srcName, publishedAt }: NewsCardProps) => {
   return (
     <div className=" bg-background-secondary flex flex-col rounded-lg overflow-hidden border border-border">
       <div className="w-full aspect-video overflow-hidden">
-        <img src={img} alt={title} className="w-full h-full object-cover" />
+        <img
+          src={img || "/assets/news.png"}
+          alt={title}
+          className="w-full h-full object-cover"
+        />
       </div>
       <div className="p-8">
         <div className=" text-sm font-semibold text-highlight">{srcName}</div>

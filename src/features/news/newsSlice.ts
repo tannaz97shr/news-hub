@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchEverything } from "../../api/newsApi";
+import { fetchEverything, fetchGuardian, fetchNYT } from "../../api/newsApi";
 import { Article, FetchEverythingParams } from "../../types/general";
 
 interface NewsState {
@@ -18,8 +18,24 @@ export const fetchEverythingThunk = createAsyncThunk(
   "news/fetchEverything",
   async (params: FetchEverythingParams, { rejectWithValue }) => {
     try {
-      const data = await fetchEverything(params);
-      return data.articles;
+      const [newsApiArticles, guardianArticles, nytArticles] =
+        await Promise.all([
+          fetchEverything(params),
+          fetchGuardian(params),
+          fetchNYT(params),
+        ]);
+
+      // Combine and sort articles by date
+      const combinedArticles = [
+        ...newsApiArticles,
+        ...guardianArticles,
+        ...nytArticles,
+      ].sort(
+        (a, b) =>
+          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+      );
+
+      return combinedArticles;
     } catch (error: any) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch articles"

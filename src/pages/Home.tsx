@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import NewsCard from "../components/NewsCard";
+import Pagination from "../components/Pagination";
 import { fetchEverythingThunk } from "../features/news/newsSlice";
 import { AppDispatch, RootState } from "../store";
 
@@ -26,7 +27,7 @@ const Home = () => {
     const { innerWidth: width } = window;
     const pageSize: number = width > 1279 ? 30 : width > 766 ? 20 : 10;
 
-    const keyword = searchParams.get("keyword") || "technology";
+    const keyword = searchParams.get("keyword") || "";
     const from = searchParams.get("from") || formatDate(yesterday);
     const to = searchParams.get("to") || formatDate(today);
     const page = parseInt(searchParams.get("page") || "1", 10);
@@ -51,17 +52,20 @@ const Home = () => {
   }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      {articles.map((article) => (
-        <NewsCard
-          key={article.title}
-          title={article.title}
-          img={article.urlToImage || ""}
-          srcName={article.source.name}
-          publishedAt={article.publishedAt}
-        />
-      ))}
-    </div>
+    <>
+      <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {articles.map((article) => (
+          <NewsCard
+            key={article.title}
+            title={article.title}
+            img={article.urlToImage || ""}
+            srcName={article.source}
+            publishedAt={article.publishedAt}
+          />
+        ))}
+      </div>
+      <Pagination />
+    </>
   );
 };
 
