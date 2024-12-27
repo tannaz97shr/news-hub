@@ -14,7 +14,7 @@ const Menu = () => {
   // }
 
   return (
-    <header className="bg-white shadow-md md:shadow-none sticky top-0 z-50 md:w-full">
+    <header className="bg-background-primary shadow-md md:shadow-none sticky top-0 z-50 md:w-full">
       <div className=" container mx-auto px-4 py-3 flex justify-between items-center">
         <div className="text-2xl font-bold">
           <a href="/">
@@ -47,7 +47,7 @@ const Menu = () => {
 
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden">
-          <div className="bg-white w-3/4 h-full p-6">
+          <div className="bg-background-primary w-3/4 h-full p-6">
             <button
               className="text-2xl mb-6"
               onClick={toggleMenu}

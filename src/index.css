@@ -4,8 +4,11 @@
 
 :root {
   --background: #ffffff;
+  --background-secondary: #f7fafc;
   --text: #080a0b;
   --text-secondary: #5d5d5b;
+  --border: rgb(226, 232, 240);
+  --highlight: #6429ff;
 }
 
 :root.dark {
@@ -18,4 +21,11 @@
 body {
   @apply font-sans;
   color: var(--text);
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }

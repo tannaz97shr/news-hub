@@ -9,11 +9,16 @@ module.exports = {
         sans: ['"Noto Color Emoji"', "system-ui", "sans-serif"],
       },
       colors: {
-        background: "var(--background)",
+        background: {
+          primary: "var(--background)",
+          secondary: "var(--background-secondary)",
+        },
         text: {
           primary: "var(--text)",
           secondary: "var(--text-secondary)",
         },
+        border: "var(--border)",
+        highlight: "var(--highlight)",
       },
     },
   },
