@@ -1,6 +1,7 @@
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { categoryOptions, sourceOptions } from "../constants";
 import { fetchAuthorsThunk } from "../features/news/newsSlice";
@@ -9,6 +10,7 @@ import { IOption } from "../types/general";
 
 const Preferences = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const { authors, authorsStatus, authorsError } = useSelector(
     (state: any) => state.news
   );
@@ -74,6 +76,7 @@ const Preferences = () => {
       }
     );
     alert("Preferences saved successfully!");
+    navigate("/");
   };
 
   const handleResetPreferences = () => {
