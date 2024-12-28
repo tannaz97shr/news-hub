@@ -11,14 +11,17 @@ const Search = () => {
   // Debounce function to limit API calls
   useEffect(() => {
     const timeout = setTimeout(() => {
+      const newParams = new URLSearchParams(searchParams);
+
       if (searchTerm.trim()) {
-        navigate(`/?keyword=${searchTerm}`);
+        newParams.set("keyword", searchTerm);
       } else {
-        const newParams = new URLSearchParams(searchParams);
         newParams.delete("keyword");
-        navigate(`/?${newParams.toString()}`);
       }
+
+      navigate(`/?${newParams.toString()}`);
     }, 500);
+
     return () => clearTimeout(timeout);
   }, [searchParams, navigate, searchTerm]);
 
@@ -28,9 +31,16 @@ const Search = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const newParams = new URLSearchParams(searchParams);
+
     if (searchTerm.trim()) {
-      navigate(`/?keyword=${searchTerm}`);
+      newParams.set("keyword", searchTerm);
+    } else {
+      newParams.delete("keyword");
     }
+
+    navigate(`/?${newParams.toString()}`);
   };
 
   return (

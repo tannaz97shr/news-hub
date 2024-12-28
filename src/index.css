@@ -3,41 +3,42 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --background-secondary: #f7fafc;
-  --text: #080a0b;
-  --text-secondary: #5d5d5b;
-  --border: rgb(226, 232, 240);
-  --highlight: #6429ff;
+  --background: #ffffff; /* White */
+  --background-secondary: #f7fafc; /* Light gray */
+  --text: #1f2937; /* Dark gray */
+  --text-secondary: #4b5563; /* Medium gray */
+  --border: #e5e7eb; /* Light gray */
+  --highlight: #6366f1; /* Blue (highlight color, you can adjust this) */
 
-  --blue-600: #2563eb;
-  --blue-700: #1d4ed8;
-  --gray-400: #cbd5e1;
-  --gray-600: #4b5563;
-  --gray-900: #111827;
-  --gray-200: #edf2f7;
-  --gray-300: #e2e8f0;
-  --black: #000000;
-  --white: #ffffff;
+  --blue-600: #2563eb; /* Tailwind Blue 600 */
+  --blue-700: #1d4ed8; /* Tailwind Blue 700 */
+  --gray-400: #d1d5db; /* Tailwind Gray 400 */
+  --gray-600: #4b5563; /* Tailwind Gray 600 */
+  --gray-900: #111827; /* Tailwind Gray 900 */
+  --gray-200: #e5e7eb; /* Tailwind Gray 200 */
+  --gray-100: #f3f4f6; /* Tailwind Gray 100 */
+  --gray-300: #e2e8f0; /* Tailwind Gray 300 */
+  --black: #000000; /* Black */
+  --white: #ffffff; /* White */
 }
-
 :root.dark {
-  --background: #181a1b;
-  --background-secondary: #242526;
-  --text: #e4e4e5;
-  --text-secondary: #a1a1a1;
-  --border: rgb(55, 65, 81);
-  --highlight: #8a63ff;
+  --background: #181a1b; /* Dark background */
+  --background-secondary: #242526; /* Dark secondary background */
+  --text: #e4e4e5; /* Light gray text */
+  --text-secondary: #a1a1a1; /* Light gray secondary text */
+  --border: #374151; /* Darker gray border */
+  --highlight: #8a63ff; /* Purple highlight */
 
-  --blue-600: #1e40af;
-  --blue-700: #1e3a8a;
-  --gray-400: #9ca3af;
-  --gray-600: #4b5563;
-  --gray-900: #1f2937;
-  --gray-200: #374151;
-  --gray-300: #4b5563;
-  --black: #000000;
-  --white: #ffffff;
+  --blue-600: #1e40af; /* Tailwind Blue 600 for dark theme */
+  --blue-700: #1e3a8a; /* Tailwind Blue 700 for dark theme */
+  --gray-400: #9ca3af; /* Tailwind Gray 400 for dark theme */
+  --gray-600: #6b7280; /* Tailwind Gray 600 for dark theme */
+  --gray-900: #1f2937; /* Tailwind Gray 900 for dark theme */
+  --gray-200: #e5e7eb; /* Light gray for dark theme */
+  --gray-100: #f3f4f6; /* Light gray for dark theme */
+  --gray-300: #4b5563; /* Medium gray for dark theme */
+  --black: #000000; /* Black */
+  --white: #ffffff; /* White */
 }
 
 body {
@@ -51,3 +52,20 @@ body {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+
+.dark .css-13cymwt-control {
+  background-color: var(--background) !important;
+}
+.dark .css-t3ipsp-control {
+  background-color: var(--background) !important;
+}
+
+.dark .css-1nmdiq5-menu {
+  background-color: var(--background) !important;
+}
+
+.dark .css-1nmdiq5-menu div div:hover {
+  background-color: var(--gray-600) !important;
+}
+
+/* <div class="css-1nmdiq5-menu"><div class="css-qr46ko" role="listbox" aria-multiselectable="true" id="react-select-5-listbox"><div class="css-d7l1ni-option" aria-disabled="false" id="react-select-5-option-0" tabindex="-1" role="option">Technology</div><div class="css-10wo9uf-option" aria-disabled="false" id="react-select-5-option-1" tabindex="-1" role="option">Sports</div><div class="css-10wo9uf-option" aria-disabled="false" id="react-select-5-option-2" tabindex="-1" role="option">Health</div></div></div> */

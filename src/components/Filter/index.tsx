@@ -66,7 +66,7 @@ const Filter = () => {
         <span>Filters</span>
       </button>
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-blackWithOpacity dark:bg-whiteWithOpacity flex items-center justify-center z-50">
           <div className="bg-white w-11/12 max-w-md rounded-lg p-4 relative">
             <h2 className="text-lg font-bold mb-4">Filters</h2>
             <FilterForm

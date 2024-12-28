@@ -94,8 +94,8 @@ const Preferences = () => {
   }));
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-50 shadow-md rounded-lg">
-      <h1 className="text-2xl font-bold mb-6 text-center text-gray-700">
+    <div className="max-w-4xl mx-auto p-6 bg-background-secondary shadow-md rounded-lg w-full">
+      <h1 className="text-2xl font-bold mb-6 text-center text-text-primary">
         Set Your Preferences
       </h1>
       <form
@@ -106,7 +106,7 @@ const Preferences = () => {
         }}
       >
         <div className="flex flex-col">
-          <label className="text-sm font-medium text-gray-700 mb-2">
+          <label className="text-sm font-medium text-text-primary mb-2">
             Preferred Sources:
           </label>
           <Select
@@ -114,12 +114,12 @@ const Preferences = () => {
             options={sourceOptions}
             value={preferredSources}
             onChange={(selected: any) => setPreferredSources(selected || [])}
-            className="text-gray-700"
+            className="text-text-primary border border-gray-200 dark:border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-highlight dark:bg-gray-700"
           />
         </div>
 
         <div className="flex flex-col">
-          <label className="text-sm font-medium text-gray-700 mb-2">
+          <label className="text-sm font-medium text-text-primary mb-2">
             Preferred Categories:
           </label>
           <Select
@@ -127,42 +127,44 @@ const Preferences = () => {
             options={categoryOptions}
             value={preferredCategories}
             onChange={(selected: any) => setPreferredCategories(selected || [])}
-            className="text-gray-700"
+            className="text-text-primary border border-gray-200 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-highlight dark:text-black"
           />
         </div>
 
         <div className="flex flex-col">
-          <label className="text-sm font-medium text-gray-700 mb-2">
+          <label className="text-sm font-medium text-text-primary mb-2">
             Preferred Authors:
           </label>
           {authorsStatus === "loading" ? (
-            <p className="text-sm text-gray-500">Loading authors...</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Loading authors...
+            </p>
           ) : authorsError ? (
-            <p className="text-sm text-red-500">
+            <p className="text-sm text-red-500 dark:text-red-400">
               Error loading authors: {authorsError}
             </p>
           ) : (
             <Select
+              className="text-text-primary border border-gray-200 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-highlight dark:text-black"
               isMulti
               options={authorOptions}
               value={preferredAuthors}
               onChange={(selected: any) => setPreferredAuthors(selected || [])}
-              className="text-gray-700"
             />
           )}
         </div>
 
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center gap-4">
           <button
             type="submit"
-            className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
+            className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-blue-600"
           >
             Save Preferences
           </button>
           <button
             type="button"
             onClick={handleResetPreferences}
-            className="bg-gray-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300"
+            className="bg-gray-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
           >
             Reset Preferences
           </button>

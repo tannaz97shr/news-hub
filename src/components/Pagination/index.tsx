@@ -6,19 +6,17 @@ const Pagination = () => {
 
   const handleNextPage = () => {
     const currentPage = parseInt(searchParams.get("page") || "1", 10);
-    setSearchParams({
-      ...Object.fromEntries(searchParams),
-      page: (currentPage + 1).toString(),
-    });
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("page", (currentPage + 1).toString());
+    setSearchParams(newParams);
   };
 
   const handlePrevPage = () => {
     const currentPage = parseInt(searchParams.get("page") || "1", 10);
     if (currentPage > 1) {
-      setSearchParams({
-        ...Object.fromEntries(searchParams),
-        page: (currentPage - 1).toString(),
-      });
+      const newParams = new URLSearchParams(searchParams);
+      newParams.set("page", (currentPage - 1).toString());
+      setSearchParams(newParams);
     }
   };
 

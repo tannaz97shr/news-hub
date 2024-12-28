@@ -15,7 +15,7 @@ const Menu = () => {
       <div className="mx-auto py-3 px-4  md:px-12 flex justify-between items-center w-full shadow-md">
         <div className="text-2xl font-bold">
           <a href="/">
-            <img className="w-28 h-14" src={"/assets/logo.png"} alt={"logo"} />
+            <span className=" text-4xl">News Hub</span>
           </a>
         </div>
         <nav className="hidden md:flex space-x-6 items-center">
@@ -44,7 +44,7 @@ const Menu = () => {
       </div>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden">
+        <div className="fixed inset-0 bg-blackWithOpacity dark:bg-whiteWithOpacity z-40 md:hidden">
           <div className="bg-background-primary w-3/4 h-full p-6">
             <button
               className="text-2xl mb-6"
