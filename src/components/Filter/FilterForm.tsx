@@ -1,3 +1,5 @@
+import { categoryOptions, sourceOptions } from "../../constants";
+
 interface FilterFormProps {
   selectedDate: string;
   setSelectedDate: (date: string) => void;
@@ -38,22 +40,23 @@ const FilterForm = ({
           className="block w-full p-2 border rounded-md"
         >
           <option value="">All</option>
-          <option value="technology">Technology</option>
-          <option value="sports">Sports</option>
-          <option value="health">Health</option>
+          {categoryOptions.map(({ value, label }) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
         </select>
       </label>
       <fieldset className="mb-4">
-        <legend className="mb-2">Sources:</legend>
-        {["bbc-news", "cnn", "New York Times", "The Guardian"].map((source) => (
-          <label key={source} className="flex items-center mb-2">
+        {sourceOptions.map(({ value, label }) => (
+          <label key={value} className="flex items-center mb-2">
             <input
               type="checkbox"
-              checked={selectedSources.includes(source)}
-              onChange={() => toggleSource(source)}
+              checked={selectedSources.includes(value)}
+              onChange={() => toggleSource(value)}
               className="mr-2"
             />
-            {source}
+            {label}
           </label>
         ))}
       </fieldset>
