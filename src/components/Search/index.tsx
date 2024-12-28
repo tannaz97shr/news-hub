@@ -40,7 +40,7 @@ const Search = () => {
         value={searchTerm}
         onChange={handleInputChange}
         placeholder="Search articles..."
-        className="p-2 border rounded-lg w-full"
+        className="p-2 border rounded-lg w-full bg-background-secondary"
       />
       <button
         type="submit"

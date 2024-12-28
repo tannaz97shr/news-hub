@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import ThemeSwitcher from "../ThemeSwitcher";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -17,7 +18,7 @@ const Menu = () => {
             <img className="w-28 h-14" src={"/assets/logo.png"} alt={"logo"} />
           </a>
         </div>
-        <nav className="hidden md:flex space-x-6">
+        <nav className="hidden md:flex space-x-6 items-center">
           <Link to="/" className="hover:text-blue-500">
             Home
           </Link>
@@ -30,6 +31,7 @@ const Menu = () => {
           <Link to="/preferences" className="hover:text-blue-500">
             Preferences
           </Link>
+          <ThemeSwitcher />
         </nav>
         {/* Mobile Menu Toggle */}
         <button
@@ -76,6 +78,9 @@ const Menu = () => {
               >
                 Preferences
               </Link>
+              <div className="w-fit">
+                <ThemeSwitcher />
+              </div>
             </nav>
           </div>
         </div>
