@@ -46,7 +46,7 @@ const Filter = () => {
     }
 
     navigate(`/?${newParams.toString()}`);
-    setIsModalOpen(false); // Close modal on apply
+    setIsModalOpen(false);
   };
 
   const resetFilters = () => {
@@ -54,7 +54,7 @@ const Filter = () => {
     setSelectedCategory("");
     setSelectedSources([]);
     navigate("/");
-    setIsModalOpen(false); // Close modal on reset
+    setIsModalOpen(false);
   };
 
   return (

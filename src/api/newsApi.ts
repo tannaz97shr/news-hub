@@ -184,7 +184,7 @@ export const fetchNYT = async (
       })
     : await nytApi.get("/articlesearch.json", {
         params: {
-          begin_date: from?.replace(/-/g, ""), // NYT requires YYYYMMDD format
+          begin_date: from?.replace(/-/g, ""),
           end_date: to?.replace(/-/g, ""),
           page,
           "api-key": process.env.REACT_APP_NYT_API_KEY,

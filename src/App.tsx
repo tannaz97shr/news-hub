@@ -17,7 +17,7 @@ const router = createBrowserRouter([
       { path: "/preferences", element: <Preferences /> },
     ],
   },
-  { path: "*", element: <NotFound /> }, // Handle unmatched routes
+  { path: "*", element: <NotFound /> },
 ]);
 
 function App() {
