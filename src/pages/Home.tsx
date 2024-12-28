@@ -6,6 +6,7 @@ import Filter from "../components/Filter";
 import NewsCard from "../components/NewsCard";
 import Pagination from "../components/Pagination";
 import Search from "../components/Search";
+import { setLoading } from "../features/loading/loadingSlice";
 import { fetchEverythingThunk } from "../features/news/newsSlice";
 import { AppDispatch, RootState } from "../store";
 
@@ -64,13 +65,14 @@ const Home = () => {
   }, [dispatch, searchParams]);
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    dispatch(setLoading(true));
   }
 
   if (status === "failed") {
+    dispatch(setLoading(false));
     return <div>Error: {error}</div>;
   }
-
+  if (status === "succeeded") dispatch(setLoading(false));
   return (
     <>
       <div className="mb-6 flex items-center justify-between">

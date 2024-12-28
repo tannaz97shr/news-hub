@@ -56,7 +56,7 @@ export const fetchEverything = async (
     (categoryQuery && categoryQuery.trim().length > 0) ||
     (sources && sources.length > 0);
 
-  console.log("fetch condition", shouldFetchWithParams);
+  const sourcesQuery = sources && sources.length > 0 ? sources.join(",") : "";
 
   const response = shouldFetchWithParams
     ? await newsApi.get<NewsApiResponse>("/everything", {
@@ -67,7 +67,7 @@ export const fetchEverything = async (
           to,
           page,
           pageSize,
-          sources,
+          sources: sourcesQuery,
         },
       })
     : await newsApi.get<NewsApiResponse>("/everything", {

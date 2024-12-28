@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-
+import loadingReducer from "./features/loading/loadingSlice";
 import newsReducer from "./features/news/newsSlice";
 
 export const store = configureStore({
   reducer: {
     news: newsReducer,
+    loading: loadingReducer,
   },
 });
 

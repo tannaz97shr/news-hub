@@ -14,8 +14,8 @@ export const months = [
 ];
 
 export const sourceOptions = [
-  { value: "BBC", label: "BBC" },
-  { value: "CNN", label: "CNN" },
+  { value: "bbc-news", label: "BBC" },
+  { value: "cnn", label: "CNN" },
   { value: "New York Times", label: "New York Times" },
   { value: "The Guardian", label: "The Guardian" },
 ];
