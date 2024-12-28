@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
@@ -27,14 +28,26 @@ const Home = () => {
         .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
 
     const { innerWidth: width } = window;
-    const pageSize: number = width > 1279 ? 12 : width > 766 ? 8 : 4;
+    const pageSize: number = width > 1279 ? 6 : width > 766 ? 6 : 4;
+
+    const savedSource = Cookies.get("preferredSources");
+    const savedCategory = Cookies.get("preferredCategories");
+    const savedAuthor = Cookies.get("preferredAuthors");
+
+    const parsedSources = savedSource ? JSON.parse(savedSource) : [];
+    const parsedCategories = savedCategory ? JSON.parse(savedCategory) : [];
+    const parsedAuthors = savedAuthor ? JSON.parse(savedAuthor) : [];
 
     const keyword = searchParams.get("keyword") || "";
     const from = searchParams.get("from") || formatDate(yesterday);
     const to = searchParams.get("to") || formatDate(today);
     const page = parseInt(searchParams.get("page") || "1", 10);
-    const category = searchParams.get("category") || "";
-    const sources = searchParams.get("source")?.split(",") || [];
+    const category =
+      searchParams.get("category")?.split(",") || parsedCategories;
+    const sources = searchParams.get("source")?.split(",") || parsedSources;
+
+    const author = parsedAuthors ? parsedAuthors : [];
+    console.log("auths ", author);
 
     dispatch(
       fetchEverythingThunk({
@@ -45,6 +58,7 @@ const Home = () => {
         pageSize,
         category,
         sources,
+        author,
       })
     );
   }, [dispatch, searchParams]);

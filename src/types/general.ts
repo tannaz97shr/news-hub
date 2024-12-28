@@ -4,6 +4,7 @@ export interface Article {
   urlToImage: string | null;
   source: string;
   publishedAt: string;
+  author?: string;
 }
 
 export interface NewsApiResponse {
@@ -19,5 +20,11 @@ export interface FetchEverythingParams {
   sources?: string[];
   page?: number;
   pageSize?: number;
-  category?: string;
+  category?: string[];
+  author?: string[];
+}
+
+export interface IOption {
+  value: string;
+  label: string;
 }

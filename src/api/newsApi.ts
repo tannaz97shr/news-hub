@@ -35,51 +35,73 @@ export const fetchEverything = async (
     pageSize = 10,
     category,
     sources,
+    author,
   } = params;
 
-  // Define the category-specific keywords
   const categoryKeywords: Record<string, string[]> = {
     technology: ["tech", "AI", "software", "computers"],
     sports: ["football", "cricket", "NBA", "soccer"],
     health: ["health", "wellness", "medicine"],
   };
 
-  // Get the category keywords if a category is provided
-  const categoryQuery = category
-    ? categoryKeywords[category]?.join(" OR ")
+  const categoryQuery = category?.length
+    ? category
+        .map((cat) => categoryKeywords[cat]?.join(" OR "))
+        .filter(Boolean)
+        .join(" OR ")
     : "";
 
-  const response =
-    keyword || categoryQuery
-      ? await newsApi.get<NewsApiResponse>("/everything", {
-          params: {
-            language: "en",
-            q: keyword || categoryQuery, // Include either the keyword or category keywords
-            from,
-            to,
-            page,
-            pageSize,
-            sources,
-          },
-        })
-      : await newsApi.get<NewsApiResponse>("/top-headlines", {
-          params: {
-            language: "en",
-            from,
-            to,
-            page,
-            pageSize,
-            sources,
-          },
-        });
+  const shouldFetchWithParams =
+    (keyword && keyword.trim().length > 0) ||
+    (categoryQuery && categoryQuery.trim().length > 0) ||
+    (sources && sources.length > 0);
 
-  return response.data.articles.map((article: any) => ({
+  console.log("fetch condition", shouldFetchWithParams);
+
+  const response = shouldFetchWithParams
+    ? await newsApi.get<NewsApiResponse>("/everything", {
+        params: {
+          language: "en",
+          q: keyword || categoryQuery,
+          from,
+          to,
+          page,
+          pageSize,
+          sources,
+        },
+      })
+    : await newsApi.get<NewsApiResponse>("/everything", {
+        params: {
+          language: "en",
+          from,
+          to,
+          page,
+          pageSize,
+          sources: "bbc-news,cnn",
+        },
+      });
+
+  const articles = response.data.articles.map((article: any) => ({
     title: article.title,
     url: article.url,
     urlToImage: article.urlToImage,
     source: article.source.name,
     publishedAt: article.publishedAt,
+    author: article.author, // Include the author field
   }));
+
+  // If author filtering is needed
+  if (author && author.length > 0) {
+    return articles.filter((article) =>
+      author.some(
+        (auth) =>
+          article.author &&
+          article.author.toLowerCase().includes(auth.toLowerCase())
+      )
+    );
+  }
+
+  return articles;
 };
 
 // Fetch news from The Guardian API
@@ -87,6 +109,7 @@ export const fetchGuardian = async (
   params: FetchEverythingParams
 ): Promise<Article[]> => {
   const { keyword, from, to, page = 1, pageSize = 10, category } = params;
+  console.log("guardian page size", pageSize);
   // Define the category-specific keywords for The Guardian
   const categoryKeywords: Record<string, string[]> = {
     technology: ["tech", "AI", "software", "computers"],
@@ -95,8 +118,11 @@ export const fetchGuardian = async (
   };
 
   // Get the category keywords if a category is provided
-  const categoryQuery = category
-    ? categoryKeywords[category]?.join(" OR ")
+  const categoryQuery = category?.length
+    ? category
+        .map((cat) => categoryKeywords[cat]?.join(" OR "))
+        .filter(Boolean)
+        .join(" OR ")
     : "";
 
   // If a category filter is applied, append it to the keyword search
@@ -126,20 +152,23 @@ export const fetchGuardian = async (
 export const fetchNYT = async (
   params: FetchEverythingParams
 ): Promise<Article[]> => {
-  const { keyword, from, to, page = 1, category } = params;
+  const { keyword, from, to, page = 1, category, pageSize = 9 } = params;
   const categoryKeywords: Record<string, string[]> = {
     technology: ["tech", "AI", "software", "computers"],
     sports: ["football", "cricket", "NBA", "soccer"],
     health: ["health", "wellness", "medicine"],
   };
 
-  // Get the category-specific keywords if a category is provided
-  const categoryQuery = category
-    ? categoryKeywords[category]?.join(" OR ")
+  const categoryQuery = category?.length
+    ? category
+        .map((cat) => categoryKeywords[cat]?.join(" OR "))
+        .filter(Boolean)
+        .join(" OR ")
     : "";
 
-  // Prepare the keyword query (use the provided keyword or category keywords)
-  const query = keyword || categoryQuery ? keyword || categoryQuery : "";
+  const query = [keyword, categoryQuery].filter(Boolean).join(" OR ");
+  // Calculate the offset to get the correct page
+  const offset = (page - 1) * pageSize;
 
   // Request to NYT API
   const response = query
@@ -149,6 +178,7 @@ export const fetchNYT = async (
           begin_date: from?.replace(/-/g, ""), // NYT requires YYYYMMDD format
           end_date: to?.replace(/-/g, ""),
           page,
+          offset: offset,
           "api-key": process.env.REACT_APP_NYT_API_KEY,
         },
       })
@@ -167,4 +197,32 @@ export const fetchNYT = async (
     source: "New York Times",
     publishedAt: article.pub_date,
   }));
+};
+
+export const getNewsApiAuthors = async (): Promise<string[]> => {
+  try {
+    const res = await newsApi.get<NewsApiResponse>(
+      "https://newsapi.org/v2/everything",
+      {
+        params: {
+          q: "latest",
+          language: "en",
+          pageSize: 20,
+        },
+      }
+    );
+    const articles = res.data.articles;
+    const authors = Array.from(
+      new Set(
+        articles
+          .map((article) => article.author)
+          .filter((author): author is string => typeof author === "string") // Type narrowing
+      )
+    );
+
+    return authors;
+  } catch (error) {
+    console.error("Failed to fetch authors:", error);
+    return [];
+  }
 };
