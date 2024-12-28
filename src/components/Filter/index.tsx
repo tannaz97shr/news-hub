@@ -19,7 +19,6 @@ const Filter = () => {
   );
 
   const toggleSource = (source: any) => {
-    console.log("sourcee", source);
     setSelectedSources((prev) =>
       prev.includes(source)
         ? prev.filter((s) => s !== source)

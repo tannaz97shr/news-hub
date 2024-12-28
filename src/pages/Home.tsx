@@ -49,7 +49,6 @@ const Home = () => {
     const sources = searchParams.get("source")?.split(",") || parsedSources;
 
     const author = parsedAuthors ? parsedAuthors : [];
-    console.log("auths ", author);
 
     dispatch(
       fetchEverythingThunk({

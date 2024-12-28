@@ -23,8 +23,6 @@ const Preferences = () => {
     const savedCategories = Cookies.get("preferredCategories");
     const savedAuthors = Cookies.get("preferredAuthors");
 
-    console.log("saved authors", savedAuthors && JSON.parse(savedAuthors));
-
     if (savedSources) {
       // setPreferredSources(JSON.parse(savedSources))
       const sources = JSON.parse(savedSources);

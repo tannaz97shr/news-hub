@@ -109,7 +109,6 @@ export const fetchGuardian = async (
   params: FetchEverythingParams
 ): Promise<Article[]> => {
   const { keyword, from, to, page = 1, pageSize = 10, category } = params;
-  console.log("guardian page size", pageSize);
   // Define the category-specific keywords for The Guardian
   const categoryKeywords: Record<string, string[]> = {
     technology: ["tech", "AI", "software", "computers"],

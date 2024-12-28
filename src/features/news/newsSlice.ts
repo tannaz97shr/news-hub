@@ -28,12 +28,10 @@ const initialState: NewsState = {
 export const fetchEverythingThunk = createAsyncThunk(
   "news/fetchEverything",
   async (params: FetchEverythingParams, { rejectWithValue }) => {
-    console.log("thunk", params.author);
     try {
       const { sources, author } = params;
 
       if (author?.length) {
-        console.log("fetch by authors", params);
         const newsApiArticles = await fetchEverything(params);
 
         return newsApiArticles.sort(
