@@ -46,13 +46,13 @@ Follow these steps to run the application inside a Docker container:
 2. Build the Docker image::
 
    ```bash
-   docker build -t my-frontend-app .
+   docker build -t news-hub .
    ```
 
 3. Run the Docker container:
 
    ```bash
-   docker run -p 3000:3000 my-frontend-app
+   docker run -p 3000:3000 news-hub
    ```
 
 4. Access the application in your browser at:
@@ -66,5 +66,5 @@ Follow these steps to run the application inside a Docker container:
 - To run the application on a different port, modify the docker run command:
 
 ```bash
-  docker run -p <your-port>:3000 my-frontend-app
+  docker run -p <your-port>:3000 news-hub
 ```
