@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import EmptyState from "../components/EmptyState";
 import Filter from "../components/Filter";
 import NewsCard from "../components/NewsCard";
 import Pagination from "../components/Pagination";
@@ -29,7 +30,7 @@ const Home = () => {
         .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
 
     const { innerWidth: width } = window;
-    const pageSize: number = width > 1279 ? 6 : width > 766 ? 6 : 4;
+    const pageSize: number = width > 1279 ? 7 : width > 766 ? 7 : 4;
 
     const savedSource = Cookies.get("preferredSources");
     const savedCategory = Cookies.get("preferredCategories");
@@ -81,18 +82,24 @@ const Home = () => {
         </div>
         <Filter />
       </div>
-      <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {articles.map((article) => (
-          <NewsCard
-            key={article.title}
-            title={article.title}
-            img={article.urlToImage || ""}
-            srcName={article.source}
-            publishedAt={article.publishedAt}
-          />
-        ))}
-      </div>
-      <Pagination />
+      {articles.length ? (
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {articles.map((article) => (
+            <NewsCard
+              key={article.title}
+              title={article.title}
+              img={article.urlToImage || ""}
+              srcName={article.source}
+              publishedAt={article.publishedAt}
+              url={article.url}
+              author={article.author}
+            />
+          ))}
+        </div>
+      ) : (
+        <EmptyState />
+      )}
+      {articles.length ? <Pagination /> : null}
     </>
   );
 };
