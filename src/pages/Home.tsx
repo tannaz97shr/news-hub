@@ -41,8 +41,8 @@ const Home = () => {
     const parsedAuthors = savedAuthor ? JSON.parse(savedAuthor) : [];
 
     const keyword = searchParams.get("keyword") || "";
-    const from = searchParams.get("from") || formatDate(yesterday);
-    const to = searchParams.get("to") || formatDate(today);
+    const from = searchParams.get("startDate") || formatDate(yesterday);
+    const to = searchParams.get("endDate") || formatDate(today);
     const page = parseInt(searchParams.get("page") || "1", 10);
     const category =
       searchParams.get("category")?.split(",") || parsedCategories;

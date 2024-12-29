@@ -1,8 +1,10 @@
 import { categoryOptions, sourceOptions } from "../../constants";
 
 interface FilterFormProps {
-  selectedDate: string;
-  setSelectedDate: (date: string) => void;
+  startDate: string;
+  setStartDate: (date: string) => void;
+  endDate: string;
+  setEndDate: (date: string) => void;
   selectedCategory: string;
   setSelectedCategory: (category: string) => void;
   selectedSources: string[];
@@ -12,8 +14,10 @@ interface FilterFormProps {
 }
 
 const FilterForm = ({
-  selectedDate,
-  setSelectedDate,
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
   selectedCategory,
   setSelectedCategory,
   selectedSources,
@@ -22,13 +26,22 @@ const FilterForm = ({
   resetFilters,
 }: FilterFormProps) => {
   return (
-    <div>
+    <div className="dark:text-gray-700">
       <label className="block mb-2">
-        Date:
+        From Date:
         <input
           type="date"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+          className="block w-full p-2 border rounded-md"
+        />
+      </label>
+      <label className="block mb-2">
+        To Date:
+        <input
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
           className="block w-full p-2 border rounded-md"
         />
       </label>

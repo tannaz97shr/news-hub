@@ -8,9 +8,10 @@ const Filter = () => {
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(
-    searchParams.get("date") || ""
+  const [startDate, setStartDate] = useState(
+    searchParams.get("startDate") || ""
   );
+  const [endDate, setEndDate] = useState(searchParams.get("endDate") || "");
   const [selectedCategory, setSelectedCategory] = useState(
     searchParams.get("category") || ""
   );
@@ -30,8 +31,11 @@ const Filter = () => {
     const newParams = new URLSearchParams(searchParams);
 
     // Apply date filter
-    if (selectedDate) newParams.set("date", selectedDate);
-    else newParams.delete("date");
+    if (startDate) newParams.set("startDate", startDate);
+    else newParams.delete("startDate");
+
+    if (endDate) newParams.set("endDate", endDate);
+    else newParams.delete("endDate");
 
     // Apply category filter
     if (selectedCategory) newParams.set("category", selectedCategory);
@@ -49,7 +53,8 @@ const Filter = () => {
   };
 
   const resetFilters = () => {
-    setSelectedDate("");
+    setStartDate("");
+    setEndDate("");
     setSelectedCategory("");
     setSelectedSources([]);
     navigate("/");
@@ -68,10 +73,14 @@ const Filter = () => {
       {isModalOpen && (
         <div className="fixed inset-0 bg-blackWithOpacity dark:bg-whiteWithOpacity flex items-center justify-center z-50">
           <div className="bg-white w-11/12 max-w-md rounded-lg p-4 relative">
-            <h2 className="text-lg font-bold mb-4">Filters</h2>
+            <h2 className="text-lg font-bold mb-4 dark:text-gray-800">
+              Filters
+            </h2>
             <FilterForm
-              selectedDate={selectedDate}
-              setSelectedDate={setSelectedDate}
+              startDate={startDate}
+              setStartDate={setStartDate}
+              endDate={endDate}
+              setEndDate={setEndDate}
               selectedCategory={selectedCategory}
               setSelectedCategory={setSelectedCategory}
               selectedSources={selectedSources}
