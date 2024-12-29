@@ -65,7 +65,7 @@ const Slider = () => {
                     />
                   </div>
                   <div className=" md:w-1/3 flex flex-col p-4">
-                    <div className=" text-sm font-semibold text-highlight">
+                    <div className=" text-sm font-semibold text-highlight mx-auto md:mx-0">
                       {headline.source}{" "}
                       {headline.author && (
                         <span className="ml-4 text-text-primary text-sm">
@@ -73,7 +73,7 @@ const Slider = () => {
                         </span>
                       )}
                     </div>
-                    <div className="w-12 border border-highlight mt-2"></div>
+                    <div className="w-12 border border-highlight mt-2 hidden md:flex"></div>
                     <div className=" text-sm text-text-secondary mt-4 font-mono">
                       {intlDate}
                     </div>
