@@ -77,7 +77,7 @@ const Home = () => {
   return (
     <>
       <Slider />
-      <div className=" text-2xl font-bold mb-6 mt-10">Articles</div>
+      <div className=" text-4xl font-bold mb-6 mt-10">Articles</div>
       <div className="mb-6 flex items-center justify-between">
         <div className="lg:w-1/3">
           <Search />

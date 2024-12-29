@@ -60,7 +60,6 @@ export const fetchEverything = async (
     sources && sources.length > 0 ? sources.join(",") : "bbc-news,cnn";
 
   if (author && author.length > 0) {
-    console.log("api author");
     const response = await newsApi.get<NewsApiResponse>("/everything", {
       params: {
         language: "en",
