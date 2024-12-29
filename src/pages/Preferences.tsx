@@ -130,7 +130,7 @@ const Preferences = () => {
             options={categoryOptions}
             value={preferredCategories}
             onChange={(selected: any) => setPreferredCategories(selected || [])}
-            className="text-text-primary border border-gray-200 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-highlight dark:text-black"
+            className="text-text-primary border border-gray-200 dark:border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-highlight dark:bg-gray-700"
           />
         </div>
 
@@ -148,7 +148,7 @@ const Preferences = () => {
             </p>
           ) : (
             <Select
-              className="text-text-primary border border-gray-200 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-highlight dark:text-black"
+              className="text-text-primary border border-gray-200 dark:border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-highlight dark:bg-gray-700"
               isMulti
               options={authorOptions}
               value={preferredAuthors}

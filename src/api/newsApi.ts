@@ -56,7 +56,38 @@ export const fetchEverything = async (
     (categoryQuery && categoryQuery.trim().length > 0) ||
     (sources && sources.length > 0);
 
-  const sourcesQuery = sources && sources.length > 0 ? sources.join(",") : "";
+  const sourcesQuery =
+    sources && sources.length > 0 ? sources.join(",") : "bbc-news,cnn";
+
+  if (author && author.length > 0) {
+    console.log("api author");
+    const response = await newsApi.get<NewsApiResponse>("/everything", {
+      params: {
+        language: "en",
+        from,
+        to,
+        page,
+        pageSize: 20,
+        sources: "bbc-news,cnn",
+      },
+    });
+
+    const articles = response.data.articles.map((article: any) => ({
+      title: article.title,
+      url: article.url,
+      urlToImage: article.urlToImage,
+      source: article.source.name,
+      publishedAt: article.publishedAt,
+      author: article.author,
+    }));
+    return articles.filter((article) =>
+      author.some(
+        (auth) =>
+          article.author &&
+          article.author.toLowerCase().includes(auth.toLowerCase())
+      )
+    );
+  }
 
   const response = shouldFetchWithParams
     ? await newsApi.get<NewsApiResponse>("/everything", {
@@ -87,19 +118,8 @@ export const fetchEverything = async (
     urlToImage: article.urlToImage,
     source: article.source.name,
     publishedAt: article.publishedAt,
-    author: article.author, // Include the author field
+    author: article.author,
   }));
-
-  // If author filtering is needed
-  if (author && author.length > 0) {
-    return articles.filter((article) =>
-      author.some(
-        (auth) =>
-          article.author &&
-          article.author.toLowerCase().includes(auth.toLowerCase())
-      )
-    );
-  }
 
   return articles;
 };
@@ -199,14 +219,26 @@ export const fetchNYT = async (
 };
 
 export const getNewsApiAuthors = async (): Promise<string[]> => {
+  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
+
+  const formatDate = (date: Date) =>
+    `${date.getFullYear()}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
+
   try {
     const res = await newsApi.get<NewsApiResponse>(
       "https://newsapi.org/v2/everything",
       {
         params: {
-          q: "latest",
           language: "en",
+          from: formatDate(yesterday),
+          to: formatDate(today),
+          page: 1,
           pageSize: 20,
+          sources: "bbc-news,cnn",
         },
       }
     );

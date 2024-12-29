@@ -22,7 +22,9 @@ const EmptyState = () => {
         alt="No Results"
         className="w-40 h-40 mb-6"
       />
-      <h2 className="text-2xl font-semibold text-gray-800">No Results Found</h2>
+      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+        No Results Found
+      </h2>
       <p className="text-gray-600 mt-2">
         We couldn't find anything matching your filters and preferences. Try
         resetting them to explore more.
