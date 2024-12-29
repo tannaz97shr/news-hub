@@ -31,8 +31,8 @@ const Slider = () => {
 
   return (
     <>
-      <div className=" text-4xl font-bold mb-6">Top Headlines</div>
-      <div className="mb-6">
+      <div className=" text-4xl font-bold my-10">Top Headlines</div>
+      <div className="mb-6 bg-background-secondary rounded-lg overflow-hidden border border-border">
         <Swiper
           modules={[Navigation, Autoplay]}
           navigation={true}
@@ -56,15 +56,15 @@ const Slider = () => {
             }).format(articleDate);
             return (
               <SwiperSlide key={headline.url}>
-                <div className="w-full flex">
-                  <div className="w-2/3 aspect-video">
+                <div className="w-full flex flex-col md:flex-row">
+                  <div className="md:w-2/3 aspect-video">
                     <img
                       src={headline.urlToImage || "/assets/news.png"}
                       alt={headline.title}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className=" w-1/3 flex flex-col p-4">
+                  <div className=" md:w-1/3 flex flex-col p-4">
                     <div className=" text-sm font-semibold text-highlight">
                       {headline.source}{" "}
                       {headline.author && (

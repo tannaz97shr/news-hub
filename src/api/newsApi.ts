@@ -261,9 +261,9 @@ export const fetchTopHeadlines = async (): Promise<Article[]> => {
   try {
     const response = await newsApi.get<NewsApiResponse>("/top-headlines", {
       params: {
-        sources: "bbc-news,cnn", // Specify the sources
-        pageSize: 3, // Fetch top 3 headlines
-        language: "en", // Language filter
+        sources: "bbc-news,cnn",
+        pageSize: 5,
+        language: "en",
       },
     });
 
