@@ -3,6 +3,7 @@ import {
   fetchEverything,
   fetchGuardian,
   fetchNYT,
+  fetchTopHeadlines,
   getNewsApiAuthors,
 } from "../../api/newsApi";
 import { Article, FetchEverythingParams } from "../../types/general";
@@ -14,6 +15,9 @@ interface NewsState {
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
   authorsError: string | null;
+  topHeadlines: Article[];
+  topHeadlinesStatus: "idle" | "loading" | "succeeded" | "failed";
+  topHeadlinesError: string | null;
 }
 
 const initialState: NewsState = {
@@ -23,6 +27,9 @@ const initialState: NewsState = {
   status: "idle",
   error: null,
   authorsError: null,
+  topHeadlines: [],
+  topHeadlinesStatus: "idle",
+  topHeadlinesError: null,
 };
 
 export const fetchEverythingThunk = createAsyncThunk(
@@ -96,6 +103,17 @@ export const fetchAuthorsThunk = createAsyncThunk(
   }
 );
 
+export const fetchTopHeadlinesThunk = createAsyncThunk(
+  "news/fetchTopHeadlines",
+  async (_, { rejectWithValue }) => {
+    try {
+      return await fetchTopHeadlines();
+    } catch (error: any) {
+      return rejectWithValue(error.message || "Failed to fetch top headlines");
+    }
+  }
+);
+
 const newsSlice = createSlice({
   name: "news",
   initialState,
@@ -137,6 +155,25 @@ const newsSlice = createSlice({
         (state, action: PayloadAction<any>) => {
           state.authorsStatus = "failed";
           state.authorsError = action.payload;
+        }
+      );
+    builder
+      .addCase(fetchTopHeadlinesThunk.pending, (state) => {
+        state.topHeadlinesStatus = "loading";
+        state.topHeadlinesError = null;
+      })
+      .addCase(
+        fetchTopHeadlinesThunk.fulfilled,
+        (state, action: PayloadAction<Article[]>) => {
+          state.topHeadlinesStatus = "succeeded";
+          state.topHeadlines = action.payload;
+        }
+      )
+      .addCase(
+        fetchTopHeadlinesThunk.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.topHeadlinesStatus = "failed";
+          state.topHeadlinesError = action.payload;
         }
       );
   },

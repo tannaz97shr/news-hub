@@ -7,6 +7,7 @@ import Filter from "../components/Filter";
 import NewsCard from "../components/NewsCard";
 import Pagination from "../components/Pagination";
 import Search from "../components/Search";
+import Slider from "../components/Slider";
 import { setLoading } from "../features/loading/loadingSlice";
 import { fetchEverythingThunk } from "../features/news/newsSlice";
 import { AppDispatch, RootState } from "../store";
@@ -75,6 +76,8 @@ const Home = () => {
   if (status === "succeeded") dispatch(setLoading(false));
   return (
     <>
+      <Slider />
+      <div className=" text-2xl font-bold mb-6 mt-10">Articles</div>
       <div className="mb-6 flex items-center justify-between">
         <div className="lg:w-1/3">
           <Search />

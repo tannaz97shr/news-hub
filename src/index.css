@@ -68,4 +68,24 @@ body {
   background-color: var(--gray-600) !important;
 }
 
-/* <div class="css-1nmdiq5-menu"><div class="css-qr46ko" role="listbox" aria-multiselectable="true" id="react-select-5-listbox"><div class="css-d7l1ni-option" aria-disabled="false" id="react-select-5-option-0" tabindex="-1" role="option">Technology</div><div class="css-10wo9uf-option" aria-disabled="false" id="react-select-5-option-1" tabindex="-1" role="option">Sports</div><div class="css-10wo9uf-option" aria-disabled="false" id="react-select-5-option-2" tabindex="-1" role="option">Health</div></div></div> */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #000; /* Change arrow color */
+  font-size: 18px; /* Adjust arrow size */
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+.dark .swiper-button-next,
+.dark .swiper-button-prev {
+  color: #fff; /* Change arrow color */
+  font-size: 18px; /* Adjust arrow size */
+}
+
+.dark .swiper-button-next:hover,
+.dark .swiper-button-prev:hover {
+  color: #007bff; /* Change color on hover */
+}

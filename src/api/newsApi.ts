@@ -257,3 +257,29 @@ export const getNewsApiAuthors = async (): Promise<string[]> => {
     return [];
   }
 };
+
+export const fetchTopHeadlines = async (): Promise<Article[]> => {
+  try {
+    const response = await newsApi.get<NewsApiResponse>("/top-headlines", {
+      params: {
+        sources: "bbc-news,cnn", // Specify the sources
+        pageSize: 3, // Fetch top 3 headlines
+        language: "en", // Language filter
+      },
+    });
+
+    return response.data.articles.map((article: any) => ({
+      title: article.title,
+      url: article.url,
+      urlToImage: article.urlToImage,
+      source: article.source.name,
+      publishedAt: article.publishedAt,
+      author: article.author,
+    }));
+  } catch (error: any) {
+    console.error("Failed to fetch top headlines:", error);
+    throw new Error(
+      error.response?.data?.message || "Failed to fetch top headlines"
+    );
+  }
+};
